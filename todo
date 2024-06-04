@@ -1,0 +1,20 @@
+
+20240603
+---
+
+do css/html course and style the app better using his teachings
+
+fix bug - if you type + in blood sugar field, it replaces with NaN lol. that is confusing for user. let them type whatever, but won't submit until you have a number. also make it wider so you can type 3 digits
+
+add ability to comment on a post, and also reply. select who you are raza, pervez. select bar is ok
+
+maybe need login state/session. keep it simple
+
+next page, prev page. what is the react way to handle this? paginate to 400 entries. 40 pages.
+
+serverless deployment or kubernetes. via AWS. learn for skool.
+
+===
+return to react course to get the best learnings there. move on to next project daily todo. checklist. templates. with AI encouragement. streaks observations etc.
+
+record yt videos of me building out that app with help of AI. people will hit me job offers. will be crazy. build personal brand as a coder, builder, shipper. coding skill tree. piano skill tree.
