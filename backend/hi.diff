@@ -1,0 +1,84 @@
+0a1
+> 
+4,7c5,11
+< 	"encoding/json"
+< 	"log"
+< 	"net/http"
+< 	"sync"
+---
+>     "encoding/json"
+>     "log"
+>     "net/http"
+>     "strconv"
+>     "sync"
+>     "time"
+> 
+12,15c16,19
+< 	ID         int    `json:"id"`
+< 	BloodSugar int    `json:"blood_sugar"`
+< 	Day        string `json:"day"`
+< 	Notes      string `json:"notes"`
+---
+>     ID         int    `json:"id"`
+>     BloodSugar int    `json:"blood_sugar"`
+>     Day        string `json:"day"`
+>     Notes      string `json:"notes"`
+19,20c23,24
+< 	mu    sync.Mutex
+< 	posts = []Post{}
+---
+>     mu    sync.Mutex
+>     posts = []Post{}
+24,26c28,35
+< 	http.HandleFunc("/posts", handlePosts)
+< 	log.Println("Server started at :8090")
+< 	log.Fatal(http.ListenAndServe(":8090", nil))
+---
+>     mux := http.NewServeMux()
+>     mux.HandleFunc("/posts", handlePosts)
+> 
+>     // Enable CORS
+>     handler := cors.Default().Handler(mux)
+> 
+>     log.Println("Server started at :8080")
+>     log.Fatal(http.ListenAndServe(":8080", handler))
+30,36c39,45
+< 	switch r.Method {
+< 	case http.MethodPost:
+< 		var post Post
+< 		if err := json.NewDecoder(r.Body).Decode(&post); err != nil {
+< 			http.Error(w, err.Error(), http.StatusBadRequest)
+< 			return
+< 		}
+---
+>     switch r.Method {
+>     case http.MethodPost:
+>         var post Post
+>         if err := json.NewDecoder(r.Body).Decode(&post); err != nil {
+>             http.Error(w, err.Error(), http.StatusBadRequest)
+>             return
+>         }
+38,41c47,50
+< 		mu.Lock()
+< 		post.ID = len(posts) + 1
+< 		posts = append(posts, post)
+< 		mu.Unlock()
+---
+>         mu.Lock()
+>         post.ID = len(posts) + 1
+>         posts = append(posts, post)
+>         mu.Unlock()
+43,48c52,57
+< 		w.Header().Set("Content-Type", "application/json")
+< 		w.WriteHeader(http.StatusCreated)
+< 		json.NewEncoder(w).Encode(post)
+< 	default:
+< 		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+< 	}
+---
+>         w.Header().Set("Content-Type", "application/json")
+>         w.WriteHeader(http.StatusCreated)
+>         json.NewEncoder(w).Encode(post)
+>     default:
+>         http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+>     }
