@@ -7,7 +7,6 @@ import (
 	"log"
 	"net/http"
 	"os"
-	"sync"
 	"time"
 
 	_ "github.com/go-sql-driver/mysql"
@@ -20,11 +19,6 @@ type Post struct {
     Day        string `json:"day"`
     Notes      string `json:"notes"`
 }
-
-var (
-    mu    sync.Mutex
-    posts = []Post{}
-)
 
 var db *sql.DB
 
@@ -76,11 +70,19 @@ func handlePosts(w http.ResponseWriter, r *http.Request) {
             return
         }
 
-        mu.Lock()
-        post.ID = len(posts) + 1
-        posts = append(posts, post)
-        mu.Unlock()
+        result, err := db.Exec("INSERT INTO posts (blood_sugar, date, notes) VALUES (?, ?, ?)", post.BloodSugar, post.Day, post.Notes)
+        if err != nil {
+            http.Error(w, err.Error(), http.StatusInternalServerError)
+            return
+        }
 
+        id, err := result.LastInsertId()
+        if err != nil {
+            http.Error(w, err.Error(), http.StatusInternalServerError)
+            return
+        }
+
+        post.ID = int(id)
         w.Header().Set("Content-Type", "application/json")
         w.WriteHeader(http.StatusCreated)
         json.NewEncoder(w).Encode(post)
