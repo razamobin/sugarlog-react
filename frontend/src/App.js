@@ -121,19 +121,21 @@ export default function App() {
 
     return (
         <div className="container">
-            <Header />
-            <section>
-                <Button onClick={toggleNewPostForm}>
-                    {showNewPostForm ? "close" : "new post"}
-                </Button>
-                {showNewPostForm && (
-                    <NewPost
-                        addNewPost={addNewPost}
-                        toggleNewPostForm={toggleNewPostForm}
-                    />
-                )}
+            <section className="main">
+                <Header />
+                <section className="new-post">
+                    <Button onClick={toggleNewPostForm}>
+                        {showNewPostForm ? "close" : "new post"}
+                    </Button>
+                    {showNewPostForm && (
+                        <NewPost
+                            addNewPost={addNewPost}
+                            toggleNewPostForm={toggleNewPostForm}
+                        />
+                    )}
+                </section>
+                <PostsList allPosts={allPosts} />
             </section>
-            <PostsList allPosts={allPosts} />
         </div>
     );
 }
@@ -320,11 +322,11 @@ function NewPost({ addNewPost, toggleNewPostForm }) {
 
 function PostsList({ allPosts }) {
     return (
-        <ul id="posts">
+        <>
             {allPosts.map((p) => {
                 return <Post key={p.id} post={p} />;
             })}
-        </ul>
+        </>
     );
 }
 
@@ -332,14 +334,14 @@ function Post({ post }) {
     console.log(post.day);
     console.log(formatDate(post.day));
     return (
-        <li>
+        <>
             <p className="blood-sugar">{post.blood_sugar}</p>
-            <section>
+            <section className="more-info">
                 <p className="day" style={{ textTransform: "lowercase" }}>
                     {formatDate(post.day)}
                 </p>
                 <p className="notes">{post.notes}</p>
             </section>
-        </li>
+        </>
     );
 }

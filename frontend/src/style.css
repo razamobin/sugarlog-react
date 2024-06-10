@@ -6,6 +6,7 @@
 
 body {
     font-family: Georgia, serif;
+    color: #333;
 }
 
 .container {
@@ -13,21 +14,40 @@ body {
     margin: 0 auto;
 }
 
+.main {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    column-gap: 10px;
+    row-gap: 20px;
+    align-items: start;
+}
+
+header {
+    grid-column: 1 / -1;
+}
+
+.new-post {
+    grid-column: 1 / -1;
+}
+
 h1 {
     font-weight: normal;
+    font-size: 32px;
 }
 
-ul {
-    list-style-type: none;
+h1 span {
+    color: #d6025e;
 }
 
-li {
-    display: flex;
+header {
+    border-bottom: 1px solid #333;
+    padding-bottom: 4px;
 }
 
 .blood-sugar {
     color: #d6025e;
     font-size: 48px;
+    justify-self: end;
 }
 
 .day {
@@ -38,4 +58,9 @@ li {
     color: #888;
     font-size: 18px;
     font-family: Verdana, sans-serif;
+}
+
+.more-info {
+    border-left: 2px solid #eee;
+    padding-left: 10px;
 }
