@@ -120,21 +120,21 @@ export default function App() {
     }
 
     return (
-        <>
+        <div className="container">
             <Header />
-            <div className="container">
+            <section>
                 <Button onClick={toggleNewPostForm}>
                     {showNewPostForm ? "close" : "new post"}
                 </Button>
-            </div>
-            {showNewPostForm && (
-                <NewPost
-                    addNewPost={addNewPost}
-                    toggleNewPostForm={toggleNewPostForm}
-                />
-            )}
+                {showNewPostForm && (
+                    <NewPost
+                        addNewPost={addNewPost}
+                        toggleNewPostForm={toggleNewPostForm}
+                    />
+                )}
+            </section>
             <PostsList allPosts={allPosts} />
-        </>
+        </div>
     );
 }
 
@@ -152,11 +152,11 @@ function Button({ onClick, children }) {
 
 function Header() {
     return (
-        <div id="header">
+        <header>
             <h1>
                 sugar<span>log</span>
             </h1>
-        </div>
+        </header>
     );
 }
 
@@ -261,86 +261,70 @@ function NewPost({ addNewPost, toggleNewPostForm }) {
     }
 
     return (
-        <div>
-            <form onSubmit={handleSubmit}>
-                <ul>
-                    <li>
-                        <label>day:</label>
-                        <select
-                            value={selectedMonth}
-                            onChange={(e) => setCurrentMonth(e.target.value)}
-                        >
-                            {months.map((m) => (
-                                <option key={m}>{m}</option>
-                            ))}
-                        </select>
+        <form onSubmit={handleSubmit}>
+            <label>day:</label>
+            <select
+                value={selectedMonth}
+                onChange={(e) => setCurrentMonth(e.target.value)}
+            >
+                {months.map((m) => (
+                    <option key={m}>{m}</option>
+                ))}
+            </select>
 
-                        <select
-                            value={selectedDay}
-                            onChange={(e) =>
-                                setCurrentDay(Number(e.target.value))
-                            }
-                        >
-                            {Array.from({ length: 31 }, (_, i) => (
-                                <option key={i + 1} value={i + 1}>
-                                    {i + 1}
-                                </option>
-                            ))}
-                        </select>
+            <select
+                value={selectedDay}
+                onChange={(e) => setCurrentDay(Number(e.target.value))}
+            >
+                {Array.from({ length: 31 }, (_, i) => (
+                    <option key={i + 1} value={i + 1}>
+                        {i + 1}
+                    </option>
+                ))}
+            </select>
 
-                        <select
-                            value={selectedYear}
-                            onChange={(e) =>
-                                setCurrentYear(Number(e.target.value))
-                            }
-                        >
-                            {years.map((year) => (
-                                <option key={year} value={year}>
-                                    {year}
-                                </option>
-                            ))}
-                        </select>
-                    </li>
-                    <li>
-                        <label>blood sugar:</label>
-                        <input
-                            className="field"
-                            type="text"
-                            size="2"
-                            maxLength="4"
-                            value={bloodSugar}
-                            onChange={(e) =>
-                                setBloodSugar(
-                                    e.target.value === ""
-                                        ? ""
-                                        : Number(e.target.value)
-                                )
-                            }
-                        />
-                    </li>
-                    <li>
-                        <label>notes (food, medicine, exercise, etc):</label>
-                        <textarea
-                            rows="6"
-                            cols="40"
-                            value={notes}
-                            onChange={(e) => setNotes(e.target.value)}
-                        ></textarea>
-                    </li>
-                    <Button onClick={() => {}}>submit</Button>
-                </ul>
-            </form>
-        </div>
+            <select
+                value={selectedYear}
+                onChange={(e) => setCurrentYear(Number(e.target.value))}
+            >
+                {years.map((year) => (
+                    <option key={year} value={year}>
+                        {year}
+                    </option>
+                ))}
+            </select>
+            <label>blood sugar:</label>
+            <input
+                className="field"
+                type="text"
+                size="2"
+                maxLength="4"
+                value={bloodSugar}
+                onChange={(e) =>
+                    setBloodSugar(
+                        e.target.value === "" ? "" : Number(e.target.value)
+                    )
+                }
+            />
+            <label>notes (food, medicine, exercise, etc):</label>
+            <textarea
+                rows="6"
+                cols="40"
+                value={notes}
+                onChange={(e) => setNotes(e.target.value)}
+            ></textarea>
+            <Button onClick={() => {}}>submit</Button>
+        </form>
     );
 }
 
 function PostsList({ allPosts }) {
     return (
-        <dl id="posts">
+        <ul id="posts">
             {allPosts.map((p) => {
                 return <Post key={p.id} post={p} />;
             })}
-        </dl>
+        </ul>
     );
 }
 
@@ -348,16 +332,14 @@ function Post({ post }) {
     console.log(post.day);
     console.log(formatDate(post.day));
     return (
-        <>
-            <dt>
-                <span className="blood_sugar">{post.blood_sugar}</span>
-            </dt>
-            <dd>
+        <li>
+            <p className="blood-sugar">{post.blood_sugar}</p>
+            <section>
                 <p className="day" style={{ textTransform: "lowercase" }}>
                     {formatDate(post.day)}
                 </p>
                 <p className="notes">{post.notes}</p>
-            </dd>
-        </>
+            </section>
+        </li>
     );
 }
