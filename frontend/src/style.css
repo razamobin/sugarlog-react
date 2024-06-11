@@ -73,7 +73,7 @@ label {
 .form-container {
     font-size: 22px;
     display: grid;
-    grid-template-columns: 150px 1fr 1fr 1fr 1fr;
+    grid-template-columns: 150px 1fr 80px 100px 150px;
     row-gap: 10px;
     column-gap: 10px;
     border-top: 2px solid #eee;
@@ -121,7 +121,7 @@ label {
 }
 
 #notes {
-    grid-column: 2 / -1;
+    grid-column: 2 / span 3;
     grid-row: 3 / span 1;
 }
 
