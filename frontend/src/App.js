@@ -124,9 +124,11 @@ export default function App() {
             <section className="main">
                 <Header />
                 <section className="new-post">
-                    <Button onClick={toggleNewPostForm}>
-                        {showNewPostForm ? "close" : "new post"}
-                    </Button>
+                    <div class="right-btn">
+                        <Button onClick={toggleNewPostForm}>
+                            {showNewPostForm ? "close" : "new post"}
+                        </Button>
+                    </div>
                     {showNewPostForm && (
                         <NewPost
                             addNewPost={addNewPost}
@@ -140,10 +142,13 @@ export default function App() {
     );
 }
 
-function Button({ onClick, children }) {
+function Button({ onClick, cn, children }) {
     if (onClick) {
         return (
-            <button onClick={onClick} className="button styled-button">
+            <button
+                onClick={onClick}
+                className={`button styled-button ${cn ? cn : ""}`}
+            >
                 {children}
             </button>
         );
@@ -263,9 +268,10 @@ function NewPost({ addNewPost, toggleNewPostForm }) {
     }
 
     return (
-        <form onSubmit={handleSubmit}>
-            <label>day:</label>
+        <form className="form-container" onSubmit={handleSubmit}>
+            <label className="day-label">day:</label>
             <select
+                className="month-select"
                 value={selectedMonth}
                 onChange={(e) => setCurrentMonth(e.target.value)}
             >
@@ -275,6 +281,7 @@ function NewPost({ addNewPost, toggleNewPostForm }) {
             </select>
 
             <select
+                className="day-select"
                 value={selectedDay}
                 onChange={(e) => setCurrentDay(Number(e.target.value))}
             >
@@ -286,6 +293,7 @@ function NewPost({ addNewPost, toggleNewPostForm }) {
             </select>
 
             <select
+                className="year-select"
                 value={selectedYear}
                 onChange={(e) => setCurrentYear(Number(e.target.value))}
             >
@@ -295,9 +303,11 @@ function NewPost({ addNewPost, toggleNewPostForm }) {
                     </option>
                 ))}
             </select>
-            <label>blood sugar:</label>
+            <label className="blood-sugar-label" htmlFor="blood-sugar">
+                blood sugar:
+            </label>
             <input
-                className="field"
+                id="blood-sugar"
                 type="text"
                 size="2"
                 maxLength="4"
@@ -308,14 +318,20 @@ function NewPost({ addNewPost, toggleNewPostForm }) {
                     )
                 }
             />
-            <label>notes (food, medicine, exercise, etc):</label>
+            <label className="notes-label" htmlFor="notes">
+                notes:
+            </label>
             <textarea
+                id="notes"
                 rows="6"
                 cols="40"
                 value={notes}
+                placeholder="(food, medicine, exercise, etc)"
                 onChange={(e) => setNotes(e.target.value)}
             ></textarea>
-            <Button onClick={() => {}}>submit</Button>
+            <Button cn="new-post-btn" onClick={() => {}}>
+                submit
+            </Button>
         </form>
     );
 }

@@ -64,3 +64,102 @@ header {
     border-left: 2px solid #eee;
     padding-left: 10px;
 }
+
+label {
+    font-weight: bold;
+    justify-self: end;
+}
+
+.form-container {
+    font-size: 22px;
+    display: grid;
+    grid-template-columns: 150px 1fr 1fr 1fr 1fr;
+    row-gap: 10px;
+    column-gap: 10px;
+    border-top: 2px solid #eee;
+    border-bottom: 2px solid #eee;
+    padding: 20px 0;
+    margin: 20px 0;
+}
+
+.day-label {
+    grid-column: 1 / span 1;
+    grid-row: 1 / span 1;
+    align-self: center;
+}
+
+.month-select {
+    grid-column: 2 / span 1;
+    grid-row: 1 / span 1;
+}
+
+.day-select {
+    grid-column: 3 / span 1;
+    grid-row: 1 / span 1;
+}
+
+.year-select {
+    grid-column: 4 / span 1;
+    grid-row: 1 / span 1;
+}
+
+.blood-sugar-label {
+    grid-column: 1 / span 1;
+    grid-row: 2 / span 1;
+    align-self: center;
+}
+
+#blood-sugar {
+    grid-column: 2 / span 1;
+    grid-row: 2 / span 1;
+}
+
+.notes-label {
+    grid-column: 1 / span 1;
+    grid-row: 3 / span 1;
+    align-self: start;
+}
+
+#notes {
+    grid-column: 2 / -1;
+    grid-row: 3 / span 1;
+}
+
+.new-post-btn {
+    grid-column: 2 / span 1;
+    grid-row: 4 / span 1;
+}
+
+select,
+input,
+textarea,
+option {
+    font-size: 22px; /* Adjust the size as needed */
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    padding: 10px;
+}
+
+textarea {
+    padding: 14px;
+}
+
+.styled-button {
+    border: none; /* Remove the border */
+    color: white; /* Set the text color */
+    background-color: #d6025e; /* Set the background color */
+    padding: 10px 20px; /* Add some padding for better appearance */
+    font-size: 16px; /* Set the font size */
+    cursor: pointer; /* Change the cursor to pointer to indicate it's clickable */
+    border-radius: 5px; /* Optional: Add rounded corners */
+    transition: background-color 0.3s; /* Optional: Add transition for smooth background color change */
+    width: 120px;
+}
+
+.styled-button:hover {
+    background-color: #c10153; /* Optional: Change background color on hover */
+}
+
+.right-btn {
+    display: flex;
+    justify-content: right;
+}
